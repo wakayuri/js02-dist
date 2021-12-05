@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myMemoPad</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+<header>
+<h1>MemoPad</h1>
+</header>
+<main style="display:none;">
+    <input type="text" id="key">
+    <textarea id="text_area"></textarea>
+    <ul>
+        <li id="save">Save</li>
+        <li id="clear">Clear</li>
+        <li id="allclear">All Clear</li>
+    </ul>
+</main>
+<table id="list">
+
+       
+
+<!-- ここに追加データが挿入される -->
+</table>
+<script>
+$("main").fadeIn(1000);
+
+//1.Save クリックイベント
+$("#save").on("click",function(){
+    var value = $("#text_area").val();
+    var key = $("#key").val();
+    localStorage.setItem(key,value);
+    alert("保存しました");
+    const html = '<tr><th>'+key+'</th><td>'+value+'</td></tr>';
+        $('#list').append(html);
+});
+
+
+//1Clear クリックイベント
+$("#clear").on("click",function(){
+    var value = $("#text_area").val();
+    var key = $("#key").val();
+    localStorage.removeItem(key,value);
+    alert("消去しました");
+    $("#text_area").val("")
+    $("#key").val("")
+
+});
+
+//All clear クリックイベント
+$("#allclear").on("click",function(){
+    var value = $("#text_area").val();
+    var key = $("#key").val();
+    localStorage.clear(key,value);
+    alert("全消去しました");
+    $("#text_area").val("")
+    $("#key").val("")
+    $("#list").val("");
+
+});
+
+//保存表示
+if(localStorage.getItem(key,value)){
+    const v = localStorage.getItem(key,value);
+    $("#list").val(v);
+
+} 
+
+
+
+
+
+</script>
+<footer><small>G's</small></footer>
+</body>
+</html>
